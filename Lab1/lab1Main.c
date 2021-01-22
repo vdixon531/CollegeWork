@@ -11,9 +11,9 @@ int id;
 char dependents [3][20]; // assume that no employees can have more than 3 registered dependents
 } Employees;
 */
-void main(int argc, char *argv[]){
+int main(int argc, char *argv[]){
 
-    FILE *file = fopen(argv[1], "r");
+    FILE *file = fopen(argv[2], "r");
     Employees emp[3];    
     
     int a = 3;//Number of employees
@@ -44,9 +44,10 @@ printEmployees (emp, a);
 saveEmployees (emp, a,  argv[1]);
 
 int num = loadEmployees (emp,  argv[1]);
+printf("%d employees detalis have been loaded from the .txt file", num);
 
 swapEmployees (&emp[0], &emp[1]);
 
-fclose(argv[1]);
+fclose(file);
 
 }
