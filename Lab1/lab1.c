@@ -23,7 +23,7 @@ char dependents [3][20]; // assume that no employees can have more than 3 regist
 void printEmployees (Employees emp1[NUM_EMP], int c){
     for(int i = 0; i < c; i++){
         printf("Employee name: %s %s\n", emp1[i].fname, emp1[i].lname);
-        printf("Id num. : %d\n", &emp1[i]);
+        printf("Id num. : %d\n", emp1[i].id);
         printf("Dependents: %s %s %s\n\n", emp1[i].dependents[0], emp1[i].dependents[1], emp1[i].dependents[2]);
     }
 
@@ -37,13 +37,14 @@ void saveEmployees (Employees emp1[NUM_EMP], int c, char txt[SIZE]){
     }
     for (int i = 0; i < c; i++){
         fprintf(fptr,"%s %s\n", emp1[i].fname, emp1[i].lname);
-        fprintf(fptr,"%d\n", &emp1[i]);
+        fprintf(fptr,"%d\n", emp1[i].id);
         fprintf(fptr,"%s %s %s\n\n", emp1[i].dependents[0], emp1[i].dependents[1], emp1[i].dependents[2]);
     }
     fclose(fptr);
 }
 int loadEmployees (Employees emp2[NUM_EMP], char txtFile[SIZE]){
     FILE *fptr;
+    int count=0;
     fptr = fopen(txtFile, "r");
     if(fptr == NULL){
         printf("Error!\n");
@@ -51,11 +52,12 @@ int loadEmployees (Employees emp2[NUM_EMP], char txtFile[SIZE]){
     }
     for (int i = 0; i < NUM_EMP; i++){
         fscanf(fptr,"%s %s\n", emp2[i].fname, emp2[i].lname);
-        fscanf(fptr,"%d\n", &emp2[i]);
+        fscanf(fptr,"%d\n", &emp2[i].id);
         fscanf(fptr,"%s %s %s\n\n", emp2[i].dependents[0], emp2[i].dependents[1], emp2[i].dependents[2]);
+        count++;
     }
     fclose(fptr);
-    
+    return count;    
 }
 void swapEmployees (Employees *e1, Employees *e2){
     Employees temp;
@@ -81,8 +83,4 @@ void swapEmployees (Employees *e1, Employees *e2){
  strcpy(e2->dependents[0], temp.dependents[0]);
  strcpy(e2->dependents[1], temp.dependents[1]);
  strcpy(e2->dependents[2], temp.dependents[2]);//COPY temp(e1) details to e2
-
- 
-
-
 }
